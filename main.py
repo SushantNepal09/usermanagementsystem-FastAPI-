@@ -1,11 +1,18 @@
 from fastapi import FastAPI
+from databaseconn import sessionusedtoconnect , engine
+import database_models
+
 
 app = FastAPI()
+
+database_models.Base.metadata.create_all(bind = engine)
 
 users = []
 
 @app.get("/")
 def getfunc():
+    db = sessionusedtoconnect()
+    db.query()
     return users
 
 @app.post("/")
