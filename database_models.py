@@ -1,7 +1,7 @@
 #this is basically creating a model/class which will be turned to the table in database
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import String,Integer,Float,Column,BigInteger
+from sqlalchemy import String,Integer,Float,Column,Integer
 
 
 Base = declarative_base()
@@ -13,7 +13,7 @@ class Employee(Base):
     name = Column(String)
     address = Column(String)
     salary = Column(Float)
-    contractYears = Column (Integer)
-    contact = Column(BigInteger)
+    contractyears = Column (Integer)
+    contact = Column(Integer)
     
     

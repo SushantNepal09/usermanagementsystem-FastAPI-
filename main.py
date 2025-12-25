@@ -7,10 +7,12 @@ app = FastAPI()
 
 database_models.Base.metadata.create_all(bind = engine)
 
+
+
 users = [
   EmployeePydantic(
     id=1,
-    name="Sushant",
+    name="Sushant11",
     address="Itahari, Sunsari",
     salary=10000000,
     contractyears=4,
@@ -84,6 +86,25 @@ EmployeePydantic(
     
     
 ]
+
+
+def _init_db():
+    db = sessionusedtoconnect()
+    
+    count = db.query(database_models.Employee).count()
+    
+    
+    if count == 0:
+        for loopeduser in users:
+            
+            db.add(database_models.Employee(**loopeduser.model_dump()))
+            
+        db.commit()
+       
+
+
+_init_db()
+
 
 @app.get("/")
 def getfunc():
