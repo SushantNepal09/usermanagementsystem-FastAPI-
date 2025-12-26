@@ -1,7 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Depends
 from databaseconn import sessionusedtoconnect , engine
 import database_models
 from pydanticmodelsmadebyme import EmployeePydantic
+from sqlalchemy.orm import Session
 
 app = FastAPI()
 
@@ -87,6 +88,20 @@ EmployeePydantic(
     
 ]
 
+def get_db():
+    db = sessionusedtoconnect()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+
+
+
+
+
+
 
 def _init_db():
     db = sessionusedtoconnect()
@@ -107,31 +122,47 @@ _init_db()
 
 
 @app.get("/")
-def getfunc():
-    db = sessionusedtoconnect()
-    db.query()
-    return users
+def getfunc(db: Session = Depends(get_db)):
+  db_values =   db.query(database_models.Employee).all()
+  return db_values
+
+@app.get("/employee/{key}")
+def get_id(id:int,db: Session = Depends(get_db)):
+    db_value = db.query(database_models.Employee).filter(database_models.Employee.id == id).first()
+    if db_value:
+        return db_value
+    return "Product Not Found"
+
 
 @app.post("/")
-def postfunc(user: str):
-    users.append(user)
-    return users
+def postfunc(user: EmployeePydantic, db: Session = Depends(get_db)):
+    db.add(database_models.Employee(**user.model_dump()))
+    db.commit()
+    return user
 
-@app.put("/{key}")
-def updatefun(key:int,new_user: str):
-    if key< 0 or key >= len(users):
+@app.put("/")
+def updatefun(id:int,new_user: EmployeePydantic,db : Session = Depends(get_db)):
+    db_values = db.query(database_models.Employee).filter(database_models.Employee.id == id).first()
+    if db_values:
+        db_values.name = new_user.name
+        db_values.address = new_user.address
+        db_values.contact = new_user.contact
+        db_values.contractyears = new_user.contractyears
+        db_values.salary = new_user.salary
+        db.commit()
+        return "Product Updated"
+    else:
+        return "Product Not Found"
+    
+    
+    
+
+@app.delete("/")
+def del_products(id:int,db:Session = Depends(get_db)):
+    db_values = db.query(database_models.Employee).filter(database_models.Employee.id == id).first()
+    if db_values:
+        db.delete(db_values)
+        db.commit()
+        return "Deleted"
+    else:
         return "not found"
-    else:
-        users[key] = new_user
-        return users
-    
-    
-
-@app.delete("/{key}")
-def delfunc(key:int):
-    if key < 0 or len(users)<= key:
-        return "User not found"
-    else:
-        del_user = users[key]
-        del users[key]
-        return {"deleted_user ": del_user}
