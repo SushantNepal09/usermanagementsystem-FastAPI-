@@ -81,7 +81,22 @@ EmployeePydantic(
     salary=9000000,
     contractyears=3,
     contact=9822233344
-)
+),
+EmployeePydantic(id=9, name="Amit", address="Kathmandu", salary=8500000, contractyears=2, contact=9811111111),
+EmployeePydantic(id=10, name="Ramesh", address="Lalitpur", salary=7800000, contractyears=4, contact=9811111112),
+EmployeePydantic(id=11, name="Suresh", address="Bhaktapur", salary=9200000, contractyears=5, contact=9811111113),
+EmployeePydantic(id=12, name="Bikash", address="Pokhara, Kaski", salary=6000000, contractyears=3, contact=9811111114),
+EmployeePydantic(id=13, name="Anita", address="Biratnagar, Morang", salary=7200000, contractyears=2, contact=9811111115),
+EmployeePydantic(id=14, name="Sunita", address="Dharan, Sunsari", salary=6800000, contractyears=4, contact=9811111116),
+EmployeePydantic(id=15, name="Nabin", address="Butwal, Rupandehi", salary=7500000, contractyears=3, contact=9811111117),
+EmployeePydantic(id=16, name="Kiran", address="Nepalgunj, Banke", salary=6400000, contractyears=2, contact=9811111118),
+EmployeePydantic(id=17, name="Prakash", address="Janakpur, Dhanusha", salary=7000000, contractyears=5, contact=9811111119),
+EmployeePydantic(id=18, name="Manish", address="Hetauda, Makwanpur", salary=8800000, contractyears=4, contact=9811111120),
+
+EmployeePydantic(id=19, name="Rajesh", address="Itahari, Sunsari", salary=6900000, contractyears=3, contact=9811111121),
+EmployeePydantic(id=20, name="Deepak", address="Bharatpur, Chitwan", salary=8300000, contractyears=2, contact=9811111122),
+
+
 
     
     
@@ -107,6 +122,7 @@ def _init_db():
     db = sessionusedtoconnect()
     
     count = db.query(database_models.Employee).count()
+   
     
     
     if count == 0:
