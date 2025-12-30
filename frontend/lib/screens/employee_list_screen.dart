@@ -116,7 +116,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           ElevatedButton(
             onPressed: () async {
               final emp = Employee(
-                id: employee?.id ?? DateTime.now().millisecondsSinceEpoch,
+                id: employee?.id ?? 0,
                 name: nameCtrl.text,
                 address: addressCtrl.text,
                 salary: double.parse(salaryCtrl.text),
