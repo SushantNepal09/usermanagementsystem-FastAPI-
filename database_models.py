@@ -9,7 +9,7 @@ Base = declarative_base()
 class Employee(Base):
     
     __tablename__ = 'EmployeeInformation'
-    id = Column(Integer,primary_key=True,index= True)
+    id = Column(Integer,primary_key=True,index= True,autoincrement = True)
     name = Column(String)
     address = Column(String)
     salary = Column(Float)

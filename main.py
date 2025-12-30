@@ -3,8 +3,18 @@ from databaseconn import sessionusedtoconnect , engine
 import database_models
 from pydanticmodelsmadebyme import EmployeePydantic
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow all for development
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 database_models.Base.metadata.create_all(bind = engine)
 
