@@ -9,7 +9,7 @@ app = FastAPI()
 database_models.Base.metadata.create_all(bind = engine)
 
 
-
+#this is a pydantic model object
 users = [
   EmployeePydantic(
     id=1,
@@ -95,7 +95,7 @@ EmployeePydantic(id=18, name="Manish", address="Hetauda, Makwanpur", salary=8800
 
 EmployeePydantic(id=19, name="Rajesh", address="Itahari, Sunsari", salary=6900000, contractyears=3, contact=9811111121),
 EmployeePydantic(id=20, name="Deepak", address="Bharatpur, Chitwan", salary=8300000, contractyears=2, contact=9811111122),
-
+EmployeePydantic(id=20, name="Deepak", address="Bharatpur, Chitwan", salary=8300000, contractyears=2, contact=9811111122),
 
 
     
